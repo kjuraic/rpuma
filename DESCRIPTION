@@ -1,0 +1,18 @@
+Package: rPuma
+Type: Package
+Title: R interface for PUMA software
+Version: 0.0.1
+Author: Krunoslav Juraic
+Maintainer: The package maintainer <kjuraic@irb.hr>
+Description: R interface for comand-line PUMA code.
+      Calculation of optical constants (absorption and index of refraction) and
+      thicknes of thin by pointwise unconstrained optimization from.
+      Transmission/Reflection measurements.
+      Transmission/Reflection data formation for PUMA input.
+      Optimization parameters list construction.
+      PUMA run.
+      Importing PUMA results in R.
+License: GPL
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
