@@ -13,6 +13,7 @@
 #'      \dontrun{puma_edit_par()}
 puma_edit_par <- function(puma_par = NA, dat_file_name = "sample-dat.txt"){
   if(is.na(puma_par)){
+    cat("list 'puma_par' not yet defined!\n")
     puma_par<-list(
       fname		=	dat_file_name,
       nlayers	=	4,
@@ -45,9 +46,10 @@ puma_edit_par <- function(puma_par = NA, dat_file_name = "sample-dat.txt"){
   } else {
     puma_par <- utils::edit(puma_par)
   }
-  if(!file.exists(paste0(puma_par$fname,"-dat.txt"))){
-    puma_par <- NA
-    cat("File [",paste0(puma_par$fname,"-dat.txt"),"] does not exist!")
+  fnm <- paste0(puma_par$fname,"-dat.txt")
+  if(!file.exists(fnm)){
+    #puma_par <- NA
+    cat("\nFile [",fnm,"] does not exist!")
   }
   puma_par
 }
@@ -100,7 +102,12 @@ puma_run<-function(puma_par, puma_path = "~/Job/R/Rpackages/rPuma/inst/puma")
 
   # exp podaci
   rez.exp<-utils::read.table(file=paste(puma_par$fname,"-dat.txt",sep=""),skip=1)
-
+  if (puma_par$data.type=='T')
+    names(rez.exp) = c('lambda', 't')
+  else if (puma_par$data.type=='R')
+    names(rez.exp) = c('lambda', 'r')
+  else if (puma_par$data.type == 'B')
+    names(rez.exp) = c('lambda', 't', 'r')
   # kompletan racun PUMA progrma sa tri iteracije
   rez<-list()
 
@@ -132,5 +139,6 @@ puma_run<-function(puma_par, puma_path = "~/Job/R/Rpackages/rPuma/inst/puma")
   rez[[3]]$exp<-rez.exp
 
   save(rez,file=paste(puma_par$fname,".Rdata",sep=''))
+  save(puma_par, file = paste0(puma_par$fname, "_puma_par.Rdata"))
   rez
 }

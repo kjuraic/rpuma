@@ -20,6 +20,9 @@ puma_input_file(f_name, f_path = getwd(), df, wd_min = -1, wd_max = -1,
 
 \item{wd_step}{wavelength step resolution}
 }
+\value{
+data.frame with data saved to file
+}
 \description{
 Write TR data in PUMA input file format
              file name should have extension '-dat.txt'
