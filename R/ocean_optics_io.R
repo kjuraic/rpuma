@@ -46,7 +46,7 @@ read_ocean_txt <- function(file_name, header  = TRUE)
     {
       data<-utils::read.table(file_name,skip=17,nrows=nPixels,row.names=NULL,col.names=colNames,dec=".")
     }
-    data <- data.frame(lambda = as.numeric(data[,1], I = as.numeric(data[,2])))
+    data[,2] <- data[,2]/100  # transmitance value [0,1]
     #mjerenje
     #objekt koji sadrzi sve podatke procitane iz OCEAN datoteke
     oceanSpektar<-list(name=name,data=data,datum=datum,vrijeme=vrijeme,intTime=intTime,spectraAvg=spectraAvg,boxcar=boxcar,nPixels=nPixels)
@@ -58,6 +58,7 @@ read_ocean_txt <- function(file_name, header  = TRUE)
       data<-utils::read.table(file_name,skip=0, row.names=NULL, col.names=colNames, dec=".")
     }
     data <- data.frame(lambda = as.numeric(data[,1], I = as.numeric(data[,2])))
+    data[,2] <- data[,2]/100  # transmitance value [0,1]
     oceanSpektar<-list(name=name, data = data)
   }
   cat("Read file [", file_name,"]\n")
