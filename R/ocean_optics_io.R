@@ -52,12 +52,12 @@ read_ocean_txt <- function(file_name, header  = TRUE)
     oceanSpektar<-list(name=name,data=data,datum=datum,vrijeme=vrijeme,intTime=intTime,spectraAvg=spectraAvg,boxcar=boxcar,nPixels=nPixels)
   } else {
     colNames<-c("lambda","I")
-    data<-utils::read.table(file_name,skip=0, row.names=NULL, col.names=colNames, dec=",")
+    data<-utils::read.table(file_name,skip=0, row.names=NULL, header = FALSE, col.names=colNames, dec=",")
     if(is.factor(data$lambda))  # ako su decimalni brojevi pisani sa tockom
     {
-      data<-utils::read.table(file_name,skip=0, row.names=NULL, col.names=colNames, dec=".")
+      data<-utils::read.table(file_name,skip=0, row.names=NULL, header = FALSE, col.names=colNames, dec=".")
     }
-    data <- data.frame(lambda = as.numeric(data[,1], I = as.numeric(data[,2])))
+    data <- data.frame(lambda = as.numeric(data[,1]), I = as.numeric(data[,2]))
     data[,2] <- data[,2]/100  # transmitance value [0,1]
     oceanSpektar<-list(name=name, data = data)
   }

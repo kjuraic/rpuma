@@ -12,7 +12,7 @@
 #' @examples
 #'      \dontrun{puma_edit_par()}
 puma_edit_par <- function(puma_par = NA, dat_file_name = "sample-dat.txt"){
-  if(is.na(puma_par)){
+  if(is.na(puma_par) | !exists('puma_par')){
     cat("list 'puma_par' not yet defined!\n")
     puma_par<-list(
       fname		=	dat_file_name,
