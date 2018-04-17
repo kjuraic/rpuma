@@ -64,3 +64,17 @@ read_ocean_txt <- function(file_name, header  = TRUE)
   cat("Read file [", file_name,"]\n")
   oceanSpektar
 }
+
+
+#' ocean list transform to data frame for use in ggplot() function
+#' @author K. Juraic
+#' @param ocean_lst list of data read from multiple ocean spectrometer files
+#' @return ocean_df data.frame with transformed data (wavelength, I, name)
+#' @export
+#' @examples \dontrun{ocean_lst()}
+ocean_lst2df <- function(ocean_lst) {
+  ocena_dat_lst <- plyr::llply(.data = ocean_lst, .fun = function(x){return(x$data)})
+  ocena_nms <- plyr::llply(.data = ocean_lst, .fun = function(x){return(x$name)})
+  ocean_df <- listdfutil::lst2df(lst = ocena_dat_lst, nms = ocena_nms)
+  ocean_df
+}

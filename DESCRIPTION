@@ -18,4 +18,6 @@ LazyData: true
 RoxygenNote: 6.0.1
 Imports:
   stats,
-  utils
+  utils,
+  listdfutil,
+  plyr
