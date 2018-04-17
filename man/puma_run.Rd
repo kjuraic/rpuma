@@ -4,12 +4,15 @@
 \alias{puma_run}
 \title{run 3 iteration calculation with puma software}
 \usage{
-puma_run(puma_par, puma_path = "~/Job/R/Rpackages/rPuma/inst/puma")
+puma_run(puma_par, puma_path = "~/Job/R/Rpackages/rPuma/inst/puma",
+  d_delta = 50)
 }
 \arguments{
 \item{puma_par}{list with model parameters}
 
 \item{puma_path}{puma program path}
+
+\item{d_delta}{second iteration d interval}
 }
 \value{
 rez = list with 3 iteration calculation results

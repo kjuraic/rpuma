@@ -91,13 +91,14 @@ puma_run_iter<-function(puma_par, puma_path = "~/Job/R/Rpackages/rPuma/inst/puma
 #'
 #' @param puma_par list with model parameters
 #' @param puma_path puma program path
+#' @param d_delta  second iteration d interval
 #'
 #' @return rez = list with 3 iteration calculation results
 #' @export
 #'
 #' @examples
 #'     \dontrun{puma_run(puma_par)}
-puma_run<-function(puma_par, puma_path = "~/Job/R/Rpackages/rPuma/inst/puma")
+puma_run<-function(puma_par, puma_path = "~/Job/R/Rpackages/rPuma/inst/puma", d_delta = 50)
 {
 
   # exp podaci
@@ -121,8 +122,10 @@ puma_run<-function(puma_par, puma_path = "~/Job/R/Rpackages/rPuma/inst/puma")
   puma_par$quad<-as.double(rez[[1]]$quadError)
   puma_par$init<-9
   puma_par$maxit<-puma_par$maxit * 2
-  puma_par$dmin<-as.numeric(rez[[1]]$debljina)-50
-  puma_par$dmax<-as.numeric(rez[[1]]$debljina)+50
+  puma_par$dmin<-as.numeric(rez[[1]]$debljina) - d_delta
+  if(puma_par$dmin <= 0)
+    puma_par$dmin <- 5
+  puma_par$dmax<-as.numeric(rez[[1]]$debljina) + d_delta
   puma_par$dstep<-1
   rez[[2]]<-puma_run_iter(puma_par)
   rez[[2]]$puma_par<-puma_par
