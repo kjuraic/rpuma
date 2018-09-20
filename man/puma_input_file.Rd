@@ -4,8 +4,8 @@
 \alias{puma_input_file}
 \title{Construct PUMA input file}
 \usage{
-puma_input_file(f_name, f_path = getwd(), df, wd_min = -1, wd_max = -1,
-  wd_step = 1)
+puma_input_file(f_name, f_path = getwd(), df, wd_min = -1,
+  wd_max = -1, wd_step = 1)
 }
 \arguments{
 \item{f_name}{puma input file name (extension -dat.txt will be added)}
