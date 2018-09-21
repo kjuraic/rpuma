@@ -114,7 +114,7 @@ puma_run<-function(puma_par, puma_path = "~/Job/R/Rpackages/rPuma/inst/puma", d_
 
   # iteracija 1
   cat("# Iteracija = 1 #\n")
-  rez[[1]]<-puma_run_iter(puma_par)
+  rez[[1]]<-puma_run_iter(puma_par = puma_par, puma_path = puma_path)
   rez[[1]]$puma_par<-puma_par
 
   quadError_fac <- 1.5 # fix problem with d == 0 results when calculation can not reach previous quadError
@@ -129,7 +129,7 @@ puma_run<-function(puma_par, puma_path = "~/Job/R/Rpackages/rPuma/inst/puma", d_
     puma_par$dmin <- 5
   puma_par$dmax<-as.numeric(rez[[1]]$debljina) + d_delta
   puma_par$dstep<-1
-  rez[[2]]<-puma_run_iter(puma_par)
+  rez[[2]]<-puma_run_iter(puma_par = puma_par, puma_path = puma_path)
   rez[[2]]$puma_par<-puma_par
 
   # iteracija 3
@@ -138,7 +138,7 @@ puma_run<-function(puma_par, puma_path = "~/Job/R/Rpackages/rPuma/inst/puma", d_
   puma_par$maxit<-puma_par$maxit * 10
   puma_par$dmin<-as.numeric(rez[[2]]$debljina)
   puma_par$dmax<-as.numeric(rez[[2]]$debljina)
-  rez[[3]]<-puma_run_iter(puma_par)
+  rez[[3]]<-puma_run_iter(puma_par = puma_par, puma_path = puma_path)
   rez[[3]]$puma_par<-puma_par
 
   rez[[3]]$exp<-rez.exp

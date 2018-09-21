@@ -2,7 +2,11 @@
 // **                                                              **
 // ** PUMA 3.0.1 (June 10th, 2009)                                 **
 // **                                                              **
-// ** (Modified on June 10th, 2009)                                **
+// ** Modified on June 3rd, 2011                                   **  
+// **                                                              **
+// ** Modification: Crystalline quartz substrate refractive index  **
+// ** refractive (SUBSTRATE=30) was corrected and Amorphous Quartz **
+// ** substrate (SUBSTRATE=60) was added.                          **
 // **                                                              **
 // ** The problem of estimating the thickness and the optical      **
 // ** constants of thin films using transmission data only is very **
@@ -1516,11 +1520,9 @@ int nobs,double lini,double lfin,char datfile[])
   else if ( substrate == 30 )
 
       for ( i = 0; i < nobs; i ++ )
-          film.s[i]=
-          2.19519 - ( 0.00548 + ( 1.99707e-05 - ( 4.00130e-08 + 
-          ( 4.69836e-11 - ( 3.22062e-14 + ( 1.19246e-17 - 1.84116e-21 * 
-          film.lambda[i] ) * film.lambda[i] ) * film.lambda[i] ) * 
-	  film.lambda[i] ) * film.lambda[i] ) * film.lambda[i] ) * film.lambda[i];
+	  film.s[i]=
+	  sqrt( 1.0 + 1.34157 * film.lambda[i] * film.lambda[i] / 
+                      ( film.lambda[i] * film.lambda[i] - 8385.79 ) );
 
   // Glass slides substrate (transparent in the range [360nm,800nm])
   else if ( substrate == 40 )
@@ -1535,13 +1537,21 @@ int nobs,double lini,double lfin,char datfile[])
 
       for ( i = 0; i < nobs; i ++ )
 	 film.s[i]= 1.51507 + 0.019 * exp( - ( film.lambda[i] - 435.8 ) / 175.09383 );
-      
+
+  // Amorphous Quartz substrate [transparent in the range 200nm,1500nm]	 
+  else if ( substrate == 60 )
+
+      for ( i = 0; i < nobs; i ++ )
+	 film.s[i]=
+	  sqrt( 1.0 + 0.18394 * film.lambda[i] * film.lambda[i] / 
+                      ( film.lambda[i] * film.lambda[i] - 18231.83 ) );
+
   // Glass Solar Cells Split 2mm 
   else if ( substrate == 90 )
       for ( i = 0; i < nobs; i ++ )
           film.s[i] = 1.45889 + 3700.84785/(film.lambda[i] * film.lambda[i]) + 1.0627e9/(film.lambda[i]*film.lambda[i]*film.lambda[i]*film.lambda[i]);
 
-  else Error("Invalid substrate (10=Glass, 20=Crystalline silicon, 30=Crystalline quartz, 40=Glass slides, 50=Borosilicate, 90=Glass Solar Cells Split)");
+   else Error("Invalid substrate (10=Glass, 20=Crystalline silicon, 30=Crystalline quartz, 40=Glass slides, 50=Borosilicate, 60=Amorphous quartz), 90=Glass Solar Cells Split Soda Lime Glass ");
 
   // Read the observed data (transmittance and/or reflectance) and
   // interpolate if necessary.
